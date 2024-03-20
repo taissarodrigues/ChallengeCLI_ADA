@@ -110,8 +110,6 @@ struct Desconexo: ParsableCommand {
             return Array(randomQuestions)
             
         }
-        
-        
         // funcao de apresentar pergunta ??//
         var score = 0
         print("Responda à pergunta")
@@ -136,13 +134,6 @@ struct Desconexo: ParsableCommand {
             }
         }
         print("\nScore:\(score)")
-        
-        
-        
-       
-       
-        
-        
     }
     
     // funcao  v ou f sem pressionar enter (usar depoois?)
