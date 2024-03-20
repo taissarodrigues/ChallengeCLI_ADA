@@ -55,6 +55,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--help"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "desconexo --amount 1"
             isEnabled = "NO">
          </CommandLineArgument>

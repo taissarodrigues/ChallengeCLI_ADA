@@ -27,7 +27,7 @@ struct Desconexo: ParsableCommand {
     var amount: Int
     @Option(name: .long, help: "Atualidades(a) ou Conhecimentos Gerais(c)")
     var theme: String
-    @Option(name: .long, help: "Nivel de dificuldade das perguntas: Facil(f) ou Dificil(d)")
+    @Option(name: .long, help: "Nivel de dificuldade das perguntas: Facil ou Dificil")
     
     var level: String
     func presentQuestion (_ question: DataBaseQuestion) {
@@ -36,21 +36,28 @@ struct Desconexo: ParsableCommand {
     func titleDesconexo() -> String {
         return
             #"""
-                ,---,
-              .'  .' `\
-            ,---.'     \                                        ,---.         ,---,                             ,---.
-            |   |  .`\  |              .--.--.                 '   ,'\    ,-+-. /  |             ,--,  ,--,    '   ,'\
-            :   : |  '  |    ,---.    /  /    '      ,---.    /   /   |  ,--.'|'   |    ,---.    |'. \/ .`|   /   /   |
-            |   ' '  ;  :   /     \  |  :  /`./     /     \  .   ; ,. : |   |  ,"' |   /     \   '  \/  / ;  .   ; ,. :
-            '   | ;  .  |  /    /  | |  :  ;_      /    / '  '   | |: : |   | /  | |  /    /  |   \  \.' /   '   | |: :
-            |   | :  |  ' .    ' / |  \  \    `.  .    ' /   '   | .; : |   | |  | | .    ' / |    \  ;  ;   '   | .; :
-            '   : | /  ;  '   ;   /|   `----.   \ '   ; :__  |   :    | |   | |  |/  '   ;   /|   / \  \  \  |   :    |
-            |   | '` ,/   '   |  / |  /  /`--'  / '   | '.'|  \   \  /  |   | |--'   '   |  / | ./__;   ;  \  \   \  /
-            ;   :  .'     |   :    | '--'.     /  |   :    :   `----'   |   |/       |   :    | |   :/\  \ ;   `----'
-            |   ,.'        \   \  /    `--'---'    \   \  /             '---'         \   \  /  `---'  `--`
-            '---'           `----'                  `----'                             `----'
+                                                          |_  _ __        o __  _| _     _  _
+                                                          |_)(/_|||   \_/ | | |(_|(_)   (_|(_)
+                            ,---,
+                          .'  .' `\
+                        ,---.'     \                                        ,---.         ,---,                             ,---.
+                        |   |  .`\  |              .--.--.                 '   ,'\    ,-+-. /  |             ,--,  ,--,    '   ,'\
+                        :   : |  '  |    ,---.    /  /    '      ,---.    /   /   |  ,--.'|'   |    ,---.    |'. \/ .`|   /   /   |
+                        |   ' '  ;  :   /     \  |  :  /`./     /     \  .   ; ,. : |   |  ,"' |   /     \   '  \/  / ;  .   ; ,. :
+                        '   | ;  .  |  /    /  | |  :  ;_      /    / '  '   | |: : |   | /  | |  /    /  |   \  \.' /   '   | |: :
+                        |   | :  |  ' .    ' / |  \  \    `.  .    ' /   '   | .; : |   | |  | | .    ' / |    \  ;  ;   '   | .; :
+                        '   : | /  ;  '   ;   /|   `----.   \ '   ; :__  |   :    | |   | |  |/  '   ;   /|   / \  \  \  |   :    |
+                        |   | '` ,/   '   |  / |  /  /`--'  / '   | '.'|  \   \  /  |   | |--'   '   |  / | ./__;   ;  \  \   \  /
+                        ;   :  .'     |   :    | '--'.     /  |   :    :   `----'   |   |/       |   :    | |   :/\  \ ;   `----'
+                        |   ,.'        \   \  /    `--'---'    \   \  /             '---'         \   \  /  `---'  `--`
+                        '---'           `----'                  `----'                             `----'
 
-            """#
+            
+            _      . _     _|  _    _  _   _  |_   _  _ .  _   _  _  |_  _   _    _   _  _  _  .  _    _    _  |_      _  | .  _|  _   _|  _  _
+           (_| |_| | /_   (_| (-   (_ (_) | ) | ) (- (_ | ||| (- | ) |_ (_) _)   (_) (- |  (_| | _)   (-   (_| |_ |_| (_| | | (_| (_| (_| (- _)
+             |                                                                   _/
+
+        """#
             
     }
     
@@ -78,11 +85,8 @@ struct Desconexo: ParsableCommand {
         
         //borda inferior
         print("+\(String(repeating: "-", count: maxWidth + 2))+")
-        
-
     }
 
-    
     func boxQuestion(_ question: String, index: Int) {
         print("\n\(index + 1). \(question)")
         print("┌─────┐    ┌─────┐")
@@ -91,8 +95,18 @@ struct Desconexo: ParsableCommand {
         print("Escolha V ou F: ")
     }
     
-    
     func run() throws {
+        // Configura terminal para desabilitar o modo canonico e o echo
+        var old = termios()
+        var new = termios()
+        tcgetattr(STDIN_FILENO, &old)
+
+        new = old
+        new.c_lflag &= ~(UInt(ICANON))
+        new.c_lflag &= ~(UInt(ECHO))
+
+        tcsetattr(STDIN_FILENO, TCSANOW, &new)
+        // Fim da configuração de terminal
         box()
         guard let quiz = generateQuiz(amount: amount, theme: theme, level: level, allQuestion: allQuestion) else {
             return
@@ -110,57 +124,32 @@ struct Desconexo: ParsableCommand {
             return Array(randomQuestions)
             
         }
-        
-        
         // funcao de apresentar pergunta ??//
         var score = 0
-        print("Responda à pergunta")
+        print("Vamos testar seus conhecimentos✨? Responda à pergunta:")
         for (index, question) in quiz.enumerated() {
             boxQuestion(question.question, index: index)
-            //            print("\n\(index + 1). \(question.question)")
+            // print("\n\(index + 1). \(question.question)")
             
-            let userAnswer = readLine()?.lowercased()
-            if let userAnswer = userAnswer {
-                let firstChar = userAnswer.first ?? " "
-                if firstChar == "v" || firstChar == "f" {
-                    let answer = firstChar == "v" ? true: false
-                    if answer == question.anwser {
-                        print("Resposta correta!")
-                        score += 1
-                    } else {
-                        print("Resposta incorreta. \(question.errorReturn)")
-                    }
+            let userAnswer = getchar()
+            let firstChar = userAnswer
+            if firstChar == 118 || firstChar == 102 {
+                let answer = firstChar == 118 ? true: false
+                if answer == question.anwser {
+                    print("Resposta correta!")
+                    score += 1
                 } else {
-                    print("Resposta inválida.")
+                    print("Resposta incorreta. \(question.errorReturn)")
                 }
+            } else {
+                print("Resposta inválida.")
             }
         }
         print("\nScore:\(score)")
         
-        
-        
-       
-       
-        
-        
+        // Volta as configurações do terminal antigo
+        tcsetattr(STDIN_FILENO, TCSANOW, &old)
     }
-    
-    // funcao  v ou f sem pressionar enter (usar depoois?)
-    //    func getch() -> Character? {
-    //        var term = termios()
-    //        tcgetattr(STDIN_FILENO, &term)
-    //        var old = term
-    //        term.c_lflag &= ~(UInt(ICANON))
-    //        term.c_lflag &= ~(UInt(ECHO))
-    //        tcsetattr(STDIN_FILENO, TCSANOW, &term)
-    //        defer {
-    //            tcsetattr(STDIN_FILENO, TCSANOW, &old)
-    //        }
-    //        var ch: Int = 0
-    //        guard read(STDIN_FILENO, &ch, 1) == 1 else { return nil }
-    //        return Character(UnicodeScalar(ch)!)=
-    //    }
-    
     
     
 }
