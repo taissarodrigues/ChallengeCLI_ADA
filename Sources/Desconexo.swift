@@ -106,7 +106,7 @@ struct Desconexo: ParsableCommand {
         guard let quiz = generateQuiz(amount: amount, theme: theme, level: level, allQuestion: allQuestion) else {
             return
         }
-        // func de gerar pergunta atraves dos parametros //
+        // func de gerar pergunta atraves dos parametros //-
         func generateQuiz(amount: Int, theme: String, level: String, allQuestion: [DataBaseQuestion]) -> [DataBaseQuestion]? {
             
             let filterQuestions = allQuestion.filter {
@@ -129,7 +129,7 @@ struct Desconexo: ParsableCommand {
                 
                 let userAnswer = getchar()
                 let firstChar = userAnswer
-                if firstChar == 118 || firstChar == 102 {
+                if firstChar == 86 || firstChar == 102 || firstChar == 118 ||  firstChar == 102 + 32 {
                     let answer = firstChar == 118 ? true: false
                     if answer == question.answer {
                         print("Resposta correta!")
@@ -156,7 +156,6 @@ struct Desconexo: ParsableCommand {
         } else {
             print("Tente novamnte e melhore o seu score ;)")
         }
-        
         
         
         
