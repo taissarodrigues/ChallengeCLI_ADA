@@ -12,7 +12,7 @@ struct Desconexo: ParsableCommand {
     static var configuration = CommandConfiguration(
         abstract: "Quiz de atualidades e conhecimentos gerais",
         usage: """
-            desconexo [OPTIONS]
+            Desconexo [OPTIONS]
             """,
         discussion: """
         Esta ferramenta é um  quiz interativo que oferece aos usuários a oportunidade
