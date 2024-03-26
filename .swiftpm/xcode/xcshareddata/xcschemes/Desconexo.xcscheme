@@ -51,7 +51,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = " --amount 4 --theme A --level Facil"
+            argument = " --amount 5 --theme C --level Dificil"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
