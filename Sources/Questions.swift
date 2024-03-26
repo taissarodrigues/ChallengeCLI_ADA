@@ -138,7 +138,7 @@ let allQuestion: [DataBaseQuestion] = [
     DataBaseQuestion(question: "O presidente do Brasil em 2021 era Jair Bolsonaro.", theme: "A", level: "Facil", answer: true, errorReturn: "O presidente do Brasil em 2021 era Jair Bolsonaro."),
     DataBaseQuestion(question: "A vacina contra a COVID-19 foi desenvolvida pela Pfizer.", theme: "A", level: "Facil", answer: false, errorReturn: "A vacina contra a COVID-19 foi desenvolvida pela Pfizer."),
     DataBaseQuestion(question: "A NASA enviou o rover Perseverance para Marte em 2020.", theme: "A", level: "Facil", answer: true, errorReturn: "A NASA enviou o rover Perseverance para Marte em 2020."),
-    DataBaseQuestion(question: "O novo presidente da Argentina é Alberto Fernández.", theme: "A", level: "Facil", answer: true, errorReturn: "O novo presidente da Argentina é Alberto Fernández."),
+    DataBaseQuestion(question: "O novo presidente da Argentina é Alberto Fernández.", theme: "A", level: "Facil", answer: true, errorReturn: "O novo presidente da Argentina é Javier Milei."),
     DataBaseQuestion(question: "A China é o país mais populoso do mundo.", theme: "A", level: "Facil", answer: true, errorReturn: "A China é o país mais populoso do mundo."),
     DataBaseQuestion(question: "O jogo Among Us foi lançado em 2020.", theme: "A", level: "Facil", answer: true, errorReturn: "O jogo Among Us foi lançado em 2020."),
     DataBaseQuestion(question: "O desmatamento na Amazônia aumentou em 2021.", theme: "A", level: "Facil", answer: true, errorReturn: "O desmatamento na Amazônia aumentou em 2021."),
